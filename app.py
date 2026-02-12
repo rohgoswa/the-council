@@ -97,7 +97,9 @@ st.markdown("""
     }
 
     /* BUTTON STYLING (Gold & Centered) */
-    div.stButton > button {
+    /* BUTTON STYLING (Gold & Centered) */
+    /* Updated to target both standard buttons and form submit buttons */
+    div.stButton > button, div.stFormSubmitButton > button {
         background: linear-gradient(135deg, #B45309 0%, #D97706 100%);
         color: white;
         border: none;
@@ -107,10 +109,12 @@ st.markdown("""
         transition: all 0.3s ease;
         box-shadow: 0 4px 14px 0 rgba(180, 83, 9, 0.39);
     }
-    div.stButton > button:hover {
+    
+    div.stButton > button:hover, div.stFormSubmitButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(180, 83, 9, 0.23);
         background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+        color: white;
     }
 
     /* ANIMATION KEYFRAMES */
@@ -124,7 +128,10 @@ st.markdown("""
         background-color: rgba(30, 30, 36, 0.9);
         border-radius: 12px;
         padding: 25px;
-        height: 100%;
+        margin-bottom: 20px;
+        /* ADD THIS LINE BELOW: */
+        min-height: 350px; 
+        /* This ensures short answers don't look tiny */
         border: 1px solid rgba(255,255,255,0.05);
         opacity: 0; 
         animation: slideUp 0.8s ease-out forwards;
@@ -167,20 +174,26 @@ with st.expander("💡 How to use The Council"):
     """)
 
 # 6. INPUT SECTION
+# 6. INPUT SECTION (Now with Form Logic)
 with st.container():
-    topic = st.text_area(
-        "", 
-        placeholder="Enter a strategic management decision here...",
-        height=100
-    )
-    
-    # Centered Button
-    col_l, col_btn, col_r = st.columns([1, 2, 1])
-    with col_btn:
-        run_btn = st.button("CONVENE THE COUNCIL", use_container_width=True)
+    # We create a Form to enable Cmd+Enter functionality
+    with st.form(key="council_form"):
+        topic = st.text_area(
+            "", 
+            placeholder="Enter a strategic management decision here...",
+            height=100
+        )
+        
+       
+        # Centered Submit Button
+        col_l, col_btn, col_r = st.columns([1, 2, 1])
+        with col_btn:
+            # Change: This is now a form_submit_button
+            run_btn = st.form_submit_button("⚡ CONVENE THE COUNCIL", use_container_width=True)
 
-# 7. MAIN LOGIC
+# 7. MAIN LOGIC (No changes needed here, run_btn works the same)
 if run_btn and topic:
+    # ... rest of your code ...
     with st.spinner("The Council is deliberating..."):
         try:
             result = app.invoke({"topic": topic})
