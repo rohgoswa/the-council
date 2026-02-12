@@ -13,7 +13,7 @@ st.set_page_config(
 
 # 2. BRANDING SIDEBAR
 with st.sidebar:
-    st.image("logo.png", width=120) 
+    st.image("logo.png",output_format="PNG") 
     st.markdown("### **Rohit's AI Studio**")
     st.caption("Building the future of Management Tech.")
     st.markdown("---")
@@ -87,8 +87,13 @@ st.markdown("""
     .stTextArea textarea {
         background-color: #111827;
         color: white;
+        caret-color: #FFD700; /* This makes the cursor GOLD! */
         border: 1px solid #374151;
         border-radius: 10px;
+    }
+    /* This handles the placeholder text color too */
+    .stTextArea textarea::placeholder {
+        color: #6B7280; 
     }
 
     /* BUTTON STYLING (Gold & Centered) */
