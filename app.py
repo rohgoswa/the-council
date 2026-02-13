@@ -171,6 +171,7 @@ with st.expander("💡 How to use The Council"):
     3.  **Analyze:** Watch the **CFO** (Money), **Union** (People), and **Visionary** (Future) debate.
     4.  **Decide:** The **CEO** will provide a final binding verdict.
     5.  **Export:** Download the official PDF report for your records.
+    6.  **Language:** The agents speak different languages.
     """)
 
 # 6. INPUT SECTION
@@ -184,7 +185,6 @@ with st.container():
             height=100
         )
         
-       
         # Centered Submit Button
         col_l, col_btn, col_r = st.columns([1, 2, 1])
         with col_btn:
@@ -208,19 +208,28 @@ if run_btn and topic:
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown(f"""<div class="agent-card ceo-border delay-4" style="text-align:center;"><div class="agent-name" style="color:#F59E0B;font-size:2.2rem;">👑 The CEO's Verdict</div><div class="agent-role" style="color:#F59E0B;">Final Binding Resolution</div><hr style="border-color:#F59E0B;opacity:0.2;width:50%;margin:20px auto;"><div class="agent-body" style="text-align:center;font-size:1.2rem;">{result['ceo_verdict']}</div></div>""", unsafe_allow_html=True)
 
-            # PDF Download
+            # ... (CEO Verdict card code is above here) ...
+
+            # PDF Download Section with SAFETY NET
             st.markdown("<br>", unsafe_allow_html=True)
-            pdf_bytes = create_pdf(topic, result['cfo_opinion'], result['union_opinion'], result['visionary_opinion'], result['ceo_verdict'])
             
-            c1, c2, c3 = st.columns([1,1,1])
-            with c2:
-                st.download_button(
-                    label="⬇ Download Official Report (PDF)",
-                    data=pdf_bytes,
-                    file_name="Council_Report.pdf",
-                    mime="application/pdf",
-                    use_container_width=True
-                )
+            try:
+                pdf_bytes = create_pdf(topic, result['cfo_opinion'], result['union_opinion'], result['visionary_opinion'], result['ceo_verdict'])
+                
+                c1, c2, c3 = st.columns([1,1,1])
+                with c2:
+                    st.download_button(
+                        label="⬇ Download Official Report (PDF)",
+                        data=pdf_bytes,
+                        file_name="Council_Report.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+            except UnicodeEncodeError:
+                # This runs if the user typed in Hindi/Korean/etc.
+                st.warning("⚠️ PDF Report is currently available in English only. (Multilingual support coming in V2).")
+            except Exception as e:
+                st.error(f"❌ PDF Generation Error: {e}")
 
         except Exception as e:
             st.error(f"❌ Error: {e}")
