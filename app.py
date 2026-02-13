@@ -157,7 +157,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 5. HEADER & INSTRUCTIONS
-st.markdown('<div class="council-title">THE COUNCIL</div>', unsafe_allow_html=True)
+# The trick: We use a <span> to shrink the font size of just the trademark symbol to 40%
+st.markdown('<div class="council-title">THE COUNCIL<span style="font-size: 45%; vertical-align: top;">&trade;</span></div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Strategy Simulation System</div>', unsafe_allow_html=True)
 
 # The "Manual" (Clean & Hidden by default)
@@ -233,3 +234,15 @@ if run_btn and topic:
 
         except Exception as e:
             st.error(f"❌ Error: {e}")
+# ... (End of your script) ...
+
+st.markdown("---")
+st.markdown(
+    """
+    <div style='text-align: center; color: #6B7280; font-size: 0.8rem;'>
+        &copy; 2026 Rohit's AI Studio. All Rights Reserved. <br>
+        <i>Built with Llama 3 & LangGraph.</i>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
