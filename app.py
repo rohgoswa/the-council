@@ -240,7 +240,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: #6B7280; font-size: 0.8rem;'>
-        &copy; 2026 <a href='https://www.linkedin.com/in/rohit-goswami-120b28245' target='_blank' style='color: #F59E0B; text-decoration: none;'>Rohit's AI Studio</a>. All Rights Reserved. <br>
+        &copy; 2026 <a href='https://www.linkedin.com/in/i-rohit-goswami/' target='_blank' style='color: #F59E0B; text-decoration: none;'>Rohit's AI Studio</a>. All Rights Reserved. <br>
         <i>Built with Llama 3 & LangGraph.</i>
     </div>
     """, 
